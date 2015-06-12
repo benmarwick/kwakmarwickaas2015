@@ -4,7 +4,7 @@
 
 #' make_retention_times_plot
 #'
-#' @return A plot of retention tims by abundance showing the result of a GC-MS analysis
+#' @return A plot of retention tims by abundance showing the result of a GC-MS analysis and some compound labels
 #' @param the_data a data.frame of two columns labeled 'retention' and 'area'
 #' @export
 #'
