@@ -1,0 +1,17 @@
+Package: kwakmarwickjas
+Type: Package
+Title: Kwak & Marwick JAS Paper
+Description: Code and data for producing the plots in Kwak and Marwick 'Food processing and pottery use in the Early Bronze Age, Central Korean Peninsula'.
+Version: 0.0.1.9000
+License: MIT + file LICENSE
+Authors@R: c(person("Ben", "Marwick", role = c("aut", "cre"),
+    email = "benmarwick@gmail.com"),person("Seungki", "Kwak", role = c("aut"), email = "skkwak@uw.edu"))
+URL: https://github.com/benmarwick
+BugReports: benmarwick@gmail.com
+LazyData: TRUE
+Imports: 
+    scales,
+    ggplot2,
+    grid
+Suggests: knitr
+VignetteBuilder: knitr

@@ -1,0 +1,40 @@
+---
+title: "Figures for 'Food processing and pottery use in the Early Bronze Age, Central Korean Peninsula'"
+author: "Ben Marwick & Seunkgi Kwak"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This document reproduces the figures illustrating the geochemical data in Kwak and Marwick 'Food processing and pottery use in the Early Bronze Age, Central Korean Peninsula'
+
+```{r}
+library(kwakmarwickjas)
+```
+
+## Figures
+
+The result chromatogram of the GC-MS analysis from one of our samples from the Sosa-Dong site (SOS049). Due to degradation, we usually observe medium- and long-chain saturated fatty acids. 5-α Cholestane was added as an internal standard (132 ng / microliter).   
+
+```{r fig.height = 4, fig.width=8}
+# Input data from csv file
+SOS049 <- read.csv(file="data/GC_MS_exported_data_Figure4.csv", header=TRUE, sep=",")
+make_retention_times_plot(SOS049)
+```
+
+The results of CSIA by GC-C-IRMS of the samples from the Sosa-Dong (ID: SO) and Kimpo-Yangchon (ID: KI) site using the reference from Craig et al., 2011 and Steele et al., 2010. 
+
+```{r fig.height = 8, fig.width=8}
+# read in data
+CSIA_KM <- read.csv('data/CSIA_KM.csv', stringsAsFactors = FALSE)
+CSIA_SS <- read.csv('data/CSIA_SS.csv', stringsAsFactors = FALSE)
+# combine both into one dataframe
+CSIA_KM_and_SS <- rbind(CSIA_KM, CSIA_SS)
+# get site ID to control plotting colour and shape
+CSIA_KM_and_SS$ID <- substr(CSIA_KM_and_SS$Sample.No., 1, 2)
+# draw plot
+make_C16_C18_scatter_plot(CSIA_KM_and_SS)
+```
