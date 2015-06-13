@@ -25,7 +25,7 @@ SOS049 <- read.csv(file="data/GC_MS_exported_data_Figure4.csv", header=TRUE, sep
 make_retention_times_plot(SOS049)
 ```
 
-The results of CSIA by GC-C-IRMS of the samples from the Sosa-Dong (ID: SO) and Kimpo-Yangchon (ID: KI) site using the reference from Craig et al., 2011 and Steele et al., 2010. 
+The results of CSIA by GC-C-IRMS of the samples from the Sosa-Dong (SO) and Kimpo-Yangchon (KI) site using the reference from Craig et al., 2011 and Steele et al., 2010. 
 
 ```{r fig.height = 8, fig.width=8}
 # read in data
@@ -37,4 +37,10 @@ CSIA_KM_and_SS <- rbind(CSIA_KM, CSIA_SS)
 CSIA_KM_and_SS$ID <- substr(CSIA_KM_and_SS$Sample.No., 1, 2)
 # draw plot
 make_C16_C18_scatter_plot(CSIA_KM_and_SS)
+```
+
+Here are the details of the computational environment that our analysis was conducted in:
+
+```{r}
+sessionInfo()
 ```
