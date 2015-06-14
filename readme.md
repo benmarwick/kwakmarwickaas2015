@@ -1,6 +1,6 @@
 ## Supplementary Materials for "Food processing and pottery use in the Early Bronze Age, Central part of the Korean Peninsula"
 
-### Compendium DOI: figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141
+### Compendium DOI: http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141
 
 ### Authors of this repository:
 Seungki Kwak and Ben Marwick (skkwak@uw.edu, bmarwick@uw.edu)
