@@ -17,7 +17,6 @@ make_retention_times_plot <- function(the_data){
   library(ggplot2)
   library(scales)
   library(grid)
-  
 
   # Create graph using values of retention time and area. 
     ggplot2::ggplot(the_data, aes(retention, area)) +
@@ -50,14 +49,14 @@ make_retention_times_plot <- function(the_data){
 make_C16_C18_scatter_plot <- function(the_data){ 
 
   # legend title
-  legend_title <- "Archaeological \nsite"
+  legend_title <- "site"
   
   # plot
   library(ggplot2)
   library(scales)
   library(grid)
 
-ggplot(the_data, aes(C16.0, C18.0, colour = ID, shape = ID )) +
+    ggplot(the_data, aes(C16.0, C18.0, colour = ID, shape = ID )) +
     geom_point(size = 3) +
     theme_minimal(base_size = 14) +
     xlab(bquote(delta*{}^13*"C 16:0 \u2030")) +

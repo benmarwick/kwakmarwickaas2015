@@ -9,7 +9,7 @@ Seungki Kwak and Ben Marwick (skkwak@uw.edu, bmarwick@uw.edu)
 
 First, ensure that you have installed R, RStudio, and the `ggplot2` package. We also recommend installing the dependencies listed below to recreate our computational environment. 
 
-Second, download and unzip our compendium from [http://dx.doi.org/10.6084/m9.figshare.1288710](http://dx.doi.org/10.6084/m9.figshare.1288710).
+Second, download and unzip our compendium from [http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141](http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141).
 
 Third, once you have a local copy of the compendium, open and run the `kwak_marwick_jas.Rproj` file in RStudio. This will set the working directory to the location of the files.
 
@@ -23,7 +23,7 @@ Also within the `analysis/` folder is the `data/` folder which contains three CS
 
 "CSIA_KM.CSV" and "CSIA_SS.CSV" are the data files of GC-MS and compound specific isotope analysis. CSIA_KM.CSV contains data from samples from the Kimpo-Yangchon site. CSIA_SS.CSV contains data from  from the Sosa-Dong site
 
-"GC-MS_exported_data_Figure4.CSV" is the data file that includes retention time and peak area data of the GC-MS chromatogram in the paper (Figure 4).
+"GC-MS_exported_data_Figure5.CSV" is the data file that includes retention time and peak area data of the GC-MS chromatogram in the paper (Figure 5).
 
 The `R/` folder contains an a R script file with our two custom plotting functions. These functions are for general use with GC-MS and CSIA data relating to archaeological foodways. The other items in our compendium are typical components of a simple R package. 
 
