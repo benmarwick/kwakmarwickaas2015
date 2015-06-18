@@ -21,7 +21,7 @@ The result chromatogram of the GC-MS analysis from one of our samples from the S
 
 ```{r fig.height = 4, fig.width=8}
 # Input data from csv file
-SOS049 <- read.csv(file="data/GC-MS_exported_data_Figure5.csv", header=TRUE, sep=",")
+SOS049 <- read.csv(file="data/GC-MS_exported_data_Figure5a.csv", header=TRUE, sep=",")
 make_retention_times_plot(SOS049)
 ```
 

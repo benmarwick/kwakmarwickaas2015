@@ -23,7 +23,7 @@ Also within the `analysis/` folder is the `data/` folder which contains three CS
 
 "CSIA_KM.CSV" and "CSIA_SS.CSV" are the data files of GC-MS and compound specific isotope analysis. CSIA_KM.CSV contains data from samples from the Kimpo-Yangchon site. CSIA_SS.CSV contains data from  from the Sosa-Dong site
 
-"GC-MS_exported_data_Figure5.CSV" is the data file that includes retention time and peak area data of the GC-MS chromatogram in the paper (Figure 5).
+"GC-MS_exported_data_Figure5a/b.CSV" is the data file that includes retention time and peak area data of the GC-MS chromatogram in the paper (Figure 5).
 
 The `R/` folder contains an a R script file with our two custom plotting functions. These functions are for general use with GC-MS and CSIA data relating to archaeological foodways. The other items in our compendium are typical components of a simple R package. 
 
