@@ -34,6 +34,31 @@ make_retention_times_plot <- function(the_data){
     geom_segment(aes(x = 24, y = 500000, xend = 25, yend = 100000), size = 0.5, arrow = arrow(length = unit(0.3, "cm")))
 }
 
+###############################
+
+#' make_retention_times_plot_no_labels
+#'
+#' @return A plot of retention tims by abundance showing the result of a GC-MS analysis and some compound labels
+#' @param the_data a data.frame of two columns labeled 'retention' and 'area'
+#' @export
+#'
+#' @examples
+#' make_retention_times_plot_no_labels()
+#' 
+#' 
+make_retention_times_plot_no_labels <- function(the_data){ 
+  
+  library(ggplot2)
+  library(scales)
+  library(grid)
+  
+  # Create graph using values of retention time and area. 
+  ggplot2::ggplot(the_data, aes(retention, area)) +
+    geom_line(colour = "blue") +
+    theme_minimal(base_size = 14) +
+    xlab("retention time (min)") +
+    scale_y_continuous(name="abundance", labels = comma)  
+}
 
 ###############################
 

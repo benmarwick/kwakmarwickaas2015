@@ -21,7 +21,7 @@ knitr::opts_chunk$set(cache = TRUE)
 The density distribution of the radiocarbon dates from the two sites.
 
 ```{r  results='hide'}
-# read data in, three columns Name = lab code, Date = radiocarbon age, Uncertainty = error
+# read data in, three columns Name = lab code, Date = radiocarbon age, Uncertainty =  error
 dates_KM <- read.csv('data/radiocarbon_KM.csv', stringsAsFactors = FALSE)
 dates_SS <- read.csv('data/radiocarbon_SS.csv', stringsAsFactors = FALSE)
 
@@ -52,12 +52,11 @@ dates_SS <- data.frame(Name = dates_SS$Name,
                        Date = date_split_Age,
                        Uncertainty = date_split_Error)
 
-# combine all dates into one...
+# combine all dates into one
 dates <- rbind(dates_KM, dates_SS)
 dates <- dates[complete.cases(dates), ]
 
 # use the R package BChron...
-
 library(Bchron)
 
 # remove NAs
@@ -93,8 +92,16 @@ The chromatogram of the GC-MS analysis from one of our samples from the Sosa-Don
 
 ```{r fig.height = 4, fig.width=8}
 # Input data from csv file
-SOS049 <- read.csv(file="data/GC-MS_exported_data_Figure5a.csv", header=TRUE, sep=",")
+SOS049 <-  read.csv(file="data/GC-MS_exported_data_Figure5a.csv", header=TRUE, sep=",")
 make_retention_times_plot(SOS049)
+```
+
+The second chromatogram, sample KIM061
+
+```{r fig.height = 4, fig.width=8}
+# Input data from csv file
+KIM061 <- read.csv(file="data/GC-MS_exported_data_Figure5b.csv", header=TRUE, sep=",") 
+make_retention_times_plot_no_labels(KIM061)
 ```
 
 The results of CSIA by GC-C-IRMS of the samples from the Sosa-Dong (SO) and Kimpo-Yangchon (KI) site using the reference from Craig et al., 2011 and Steele et al., 2010. 

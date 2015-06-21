@@ -3,3 +3,4 @@
 export(BchronDensity_plot_params)
 export(make_C16_C18_scatter_plot)
 export(make_retention_times_plot)
+export(make_retention_times_plot_no_labels)
