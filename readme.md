@@ -9,12 +9,13 @@ Seungki Kwak and Ben Marwick (skkwak@uw.edu, bmarwick@uw.edu)
 
 First, ensure that you have installed R, RStudio, and the `ggplot2` package. We also recommend installing the dependencies listed below to recreate our computational environment. 
 
-Second, download and unzip our compendium from [http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141](http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141).
+Second, download and unzip our compendium from [http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141](http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141) or clone it from github.
 
 Third, once you have a local copy of the compendium, open and run the `kwak_marwick_jas.Rproj` file in RStudio. This will set the working directory to the location of the files.
 
-Fourth, look in the `analysis/` directory and open the `analysis.Rmd` file in RStudio. Then run rmarkdown::render() or click the 'knit' button in RStudio. This will generate a HTML document that includes the plots from the manuscript. 
+Fourth, run `devtools::install("kwakmarwickjas2015")` to install the functions used by this compendium. 
 
+Fifth, look in the `analysis/` directory and open the `analysis.Rmd` file in RStudio. Then run `rmarkdown::render()` or click the 'knit' button in RStudio. This will generate a HTML document that includes the plots from the manuscript. 
 ### Contents
 
 The `analysis/` folder contains an R markdown file that, when executed, will generate the figures found in the manuscript.
