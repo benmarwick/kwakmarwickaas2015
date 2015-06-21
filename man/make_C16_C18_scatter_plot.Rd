@@ -4,7 +4,10 @@
 \alias{make_C16_C18_scatter_plot}
 \title{make_C16_C18_scatter_plot}
 \usage{
-make_C16_C18_scatter_plot()
+make_C16_C18_scatter_plot(the_data)
+}
+\arguments{
+\item{the_data}{a data.frame of three columns labeled 'C16.0', 'C18.0' and 'ID'}
 }
 \value{
 A scatter plot of the C16:0 and C18:0 data for each sample

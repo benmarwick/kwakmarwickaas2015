@@ -12,12 +12,84 @@ vignette: >
 This document reproduces the figures illustrating the geochemical data in Kwak and Marwick 'Food processing and pottery use in the Early Bronze Age, Central Korean Peninsula'
 
 ```{r}
-library(kwakmarwickjas)
+library(kwakmarwickjas2015)
+knitr::opts_chunk$set(cache = TRUE)
 ```
 
 ## Figures
 
-The result chromatogram of the GC-MS analysis from one of our samples from the Sosa-Dong site (SOS049). Due to degradation, we usually observe medium- and long-chain saturated fatty acids. 5-α Cholestane was added as an internal standard (132 ng / microliter).   
+The density distribution of the radiocarbon dates from the two sites.
+
+```{r  results='hide'}
+# read data in, three columns Name = lab code, Date = radiocarbon age, Uncertainty = error
+dates_KM <- read.csv('data/radiocarbon_KM.csv', stringsAsFactors = FALSE)
+dates_SS <- read.csv('data/radiocarbon_SS.csv', stringsAsFactors = FALSE)
+
+# make date names
+dates_KM$Name <- paste0("KM_", dates_KM[,1])
+dates_SS$Name <- paste0("SS_", dates_SS[,1])
+# remove spaces
+dates_KM$Name <- gsub("[[:space:]]", "_", dates_KM$Name)
+dates_SS$Name <- gsub("[[:space:]]", "_", dates_SS$Name)
+
+# split age and error term
+library(stringr)
+
+# KM
+date_split  <- str_split_fixed(dates_KM$C14.date..BP..uncalibrated., "pm", 2)
+date_split_Age <- as.numeric(gsub("[^0-9]", "", date_split[, 1]))
+date_split_Error <- as.numeric(gsub("[^0-9]", "", date_split[, 2]))
+# combine into data frame
+dates_KM <- data.frame(Name = dates_KM$Name,
+                       Date = date_split_Age,
+                       Uncertainty = date_split_Error)
+# SS
+date_split  <- str_split_fixed(dates_SS$C14.date..BP..uncalibrated., "\\?\\?", 2)
+date_split_Age <- as.numeric(gsub("[^0-9]", "", date_split[, 1]))
+date_split_Error <- as.numeric(gsub("[^0-9]", "", date_split[, 2]))
+# combine into data frame
+dates_SS <- data.frame(Name = dates_SS$Name,
+                       Date = date_split_Age,
+                       Uncertainty = date_split_Error)
+
+# combine all dates into one...
+dates <- rbind(dates_KM, dates_SS)
+dates <- dates[complete.cases(dates), ]
+
+# use the R package BChron...
+
+library(Bchron)
+
+# remove NAs
+dates_SS <- dates_SS[complete.cases(dates_SS),]
+
+# get estimation of activity through age as proxy
+
+Dens_KM = BchronDensity(ages=dates_KM$Date, ageSds=dates_KM$Uncertainty, calCurves=rep('intcal13', nrow(dates_KM)))
+
+Dens_SS = BchronDensity(ages=dates_SS$Date, ageSds=dates_SS$Uncertainty, calCurves=rep('intcal13', nrow(dates_SS)))
+
+# get line for plotting
+
+Dens_KM_plot <- BchronDensity_plot_params("KM", Dens_KM)
+Dens_SS_plot <- BchronDensity_plot_params("SS", Dens_SS)
+
+plot_all <- rbind(Dens_KM_plot, Dens_SS_plot)
+```
+
+```{r fig.height = 4, fig.width=8,}
+library(ggplot2)
+ggplot(plot_all, aes(dateGrid, densFinal, colour = ID)) +
+  geom_line(size = 0.5) +
+  theme_minimal(base_size = 14) +
+  xlab("calibrated years BP") +
+  ylab("Density") +
+  xlim(1000,4000)
+```
+
+
+
+The chromatogram of the GC-MS analysis from one of our samples from the Sosa-Dong site (SOS049). Due to degradation, we usually observe medium- and long-chain saturated fatty acids. 5-α Cholestane was added as an internal standard (132 ng / microliter).   
 
 ```{r fig.height = 4, fig.width=8}
 # Input data from csv file

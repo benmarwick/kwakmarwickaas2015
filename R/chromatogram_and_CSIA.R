@@ -70,3 +70,44 @@ make_C16_C18_scatter_plot <- function(the_data){
 
 }
 
+###############################
+
+#' BchronDensity_plot_params 
+#'
+#' @return A line plot for radiocarbon dates
+#' @param ID character, the site ID
+#' @param x output object from BchronDensity
+#' @export
+#'
+#' @examples
+#' Dens_KM = BchronDensity(ages=dates_KM$Date, ageSds=dates_KM$Uncertainty, calCurves=rep('intcal13', nrow(dates_KM)))
+#' BchronDensity_plot_params("KM", Dens_KM)
+#'
+
+# get plot parameters to make a custom plot
+BchronDensity_plot_params <- function(ID, x){
+  
+  n = length(x$calAges)
+  thetaRange = range(x$calAges[[1]]$ageGrid)
+  for (i in 2:n) thetaRange = range(c(thetaRange, x$calAges[[i]]$ageGrid))
+  dateGrid = seq(round(thetaRange[1] * 0.9, 3), round(thetaRange[2] * 
+                                                        1.1, 3), length = 1000)
+  gauss <- function(x, mu, sig) {
+    u <- (x - mu)/sig
+    y <- exp(-u * u/2)
+    y
+  }
+  gbase <- function(x, mus) {
+    sig <- (mus[2] - mus[1])/2
+    G <- outer(x, mus, gauss, sig)
+    G
+  }
+  Gstar = gbase(dateGrid, x$mu)
+  dens = vector(length = length(dateGrid))
+  for (i in 1:nrow(x$p)) {
+    dens = dens + Gstar %*% x$p[i, ]
+  }
+  densFinal = dens/sum(dens)
+  return(data.frame(ID = ID, dateGrid = dateGrid, densFinal = densFinal))
+}
+

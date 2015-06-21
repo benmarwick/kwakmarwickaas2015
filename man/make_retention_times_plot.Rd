@@ -4,10 +4,13 @@
 \alias{make_retention_times_plot}
 \title{make_retention_times_plot}
 \usage{
-make_retention_times_plot()
+make_retention_times_plot(the_data)
+}
+\arguments{
+\item{the_data}{a data.frame of two columns labeled 'retention' and 'area'}
 }
 \value{
-A plot of retention tims by abundance showing the result of a GC-MS analysis
+A plot of retention tims by abundance showing the result of a GC-MS analysis and some compound labels
 }
 \description{
 make_retention_times_plot
