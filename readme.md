@@ -20,9 +20,11 @@ Fifth, look in the `analysis/` directory and open the `analysis.Rmd` file in RSt
 
 The `analysis/` folder contains an R markdown file that, when executed, will generate the figures found in the manuscript.
 
-Also within the `analysis/` folder is the `data/` folder which contains three CSV files. 
+Also within the `analysis/` folder is the `data/` folder which contains CSV files. 
 
-"CSIA_KM.CSV" and "CSIA_SS.CSV" are the data files of GC-MS and compound specific isotope analysis. CSIA_KM.CSV contains data from samples from the Kimpo-Yangchon site. CSIA_SS.CSV contains data from  from the Sosa-Dong site
+"sampling_Kimpo.CSV" and "sampling_Sosa.CSV" are the data files of the entire collected samples in this paper. 
+
+"CSIA_KM.CSV" and "CSIA_SS.CSV" are the data files of GC-MS and compound specific isotope analysis. CSIA_KM.CSV contains data from the Kimpo-Yangchon site. CSIA_SS.CSV contains data from the Sosa-Dong site.
 
 "GC-MS_exported_data_Figure5a/b.CSV" is the data file that includes retention time and peak area data of the GC-MS chromatogram in the paper (Figure 5).
 
