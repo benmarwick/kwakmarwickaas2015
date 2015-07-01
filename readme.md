@@ -1,6 +1,6 @@
 ## Supplementary Materials for "Food processing and pottery use in the Early Bronze Age, Central part of the Korean Peninsula"
 
-### Compendium DOI: http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141
+### Compendium DOI: http://dx.doi.org/10.6084/m9.figshare.1444025
 
 ### Authors of this repository:
 Seungki Kwak and Ben Marwick (skkwak@uw.edu, bmarwick@uw.edu)
@@ -9,7 +9,7 @@ Seungki Kwak and Ben Marwick (skkwak@uw.edu, bmarwick@uw.edu)
 
 First, ensure that you have installed R, RStudio, and the `ggplot2` package. We also recommend installing the dependencies listed below to recreate our computational environment. 
 
-Second, download and unzip our compendium from [http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141](http://figshare.com/s/af8e64d80f2011e594bb06ec4bbcf141) or clone it from github.
+Second, download and unzip our compendium from [http://dx.doi.org/10.6084/m9.figshare.1444025](http://dx.doi.org/10.6084/m9.figshare.1444025) or clone it from github.
 
 Third, once you have a local copy of the compendium, open and run the `kwak_marwick_jas.Rproj` file in RStudio. This will set the working directory to the location of the files.
 
@@ -20,9 +20,11 @@ Fifth, look in the `analysis/` directory and open the `analysis.Rmd` file in RSt
 
 The `analysis/` folder contains an R markdown file that, when executed, will generate the figures found in the manuscript.
 
-Also within the `analysis/` folder is the `data/` folder which contains three CSV files. 
+Also within the `analysis/` folder is the `data/` folder which contains CSV files. 
 
-"CSIA_KM.CSV" and "CSIA_SS.CSV" are the data files of GC-MS and compound specific isotope analysis. CSIA_KM.CSV contains data from samples from the Kimpo-Yangchon site. CSIA_SS.CSV contains data from  from the Sosa-Dong site
+"sampling_Kimpo.CSV" and "sampling_Sosa.CSV" are the data files of the entire collected samples in this paper. 
+
+"CSIA_KM.CSV" and "CSIA_SS.CSV" are the data files of GC-MS and compound specific isotope analysis. CSIA_KM.CSV contains data from the Kimpo-Yangchon site. CSIA_SS.CSV contains data from the Sosa-Dong site.
 
 "GC-MS_exported_data_Figure5a/b.CSV" is the data file that includes retention time and peak area data of the GC-MS chromatogram in the paper (Figure 5).
 
