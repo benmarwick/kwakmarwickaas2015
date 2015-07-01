@@ -12,7 +12,7 @@ vignette: >
 This document reproduces the figures illustrating the geochemical data in Kwak and Marwick 'Food processing and pottery use in the Early Bronze Age, Central Korean Peninsula'
 
 ```{r}
-library(kwakmarwickjas2015)
+library(kwakmarwick2015)
 knitr::opts_chunk$set(cache = TRUE)
 ```
 

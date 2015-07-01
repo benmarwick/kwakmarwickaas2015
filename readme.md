@@ -13,7 +13,7 @@ Second, download and unzip our compendium from [http://figshare.com/s/af8e64d80f
 
 Third, once you have a local copy of the compendium, open and run the `kwak_marwick_jas.Rproj` file in RStudio. This will set the working directory to the location of the files.
 
-Fourth, run `devtools::install("kwakmarwickjas2015")` to install the functions used by this compendium. 
+Fourth, run `devtools::install("kwakmarwick2015")` to install the functions used by this compendium. 
 
 Fifth, look in the `analysis/` directory and open the `analysis.Rmd` file in RStudio. Then run `rmarkdown::render()` or click the 'knit' button in RStudio. This will generate a HTML document that includes the plots from the manuscript. 
 ### Contents
