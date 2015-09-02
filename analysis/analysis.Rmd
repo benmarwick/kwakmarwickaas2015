@@ -94,7 +94,7 @@ The chromatogram of the GC-MS analysis from one of our samples from the Sosa-Don
 
 ```{r fig.height = 4, fig.width=8}
 # Input data from csv file
-SOS049 <-  read.csv(file="data/GC-MS_exported_data_Figure5a.csv", header=TRUE, sep=",")
+SOS049 <-  read.csv(file="data/GC-MS_exported_data_Figure5a.CSV", header=TRUE, sep=",")
 make_retention_times_plot(SOS049)
 ```
 
@@ -102,7 +102,7 @@ The second chromatogram, sample KIM061
 
 ```{r fig.height = 4, fig.width=8}
 # Input data from csv file
-KIM061 <- read.csv(file="data/GC-MS_exported_data_Figure5b.csv", header=TRUE, sep=",") 
+KIM061 <- read.csv(file="data/GC-MS_exported_data_Figure5b.CSV", header=TRUE, sep=",") 
 make_retention_times_plot_no_labels(KIM061)
 ```
 
@@ -124,7 +124,7 @@ make_C16_C18_scatter_plot(CSIA_KM_and_SS)
 The big delta plot
 
 ```{r fig.height = 8, fig.width=8}
- big_delta <- d18 - d16
+# big_delta <- d18 - d16
 big_delta <- CSIA_KM_and_SS$C18.0 - CSIA_KM_and_SS$C16.0
 big_delta <- data.frame(big_delta = big_delta, 
                         C16.0 = CSIA_KM_and_SS$C16.0, 
@@ -135,9 +135,7 @@ ggplot(big_delta, aes(C16.0, big_delta, colour = Site)) +
   xlim(-40,-10) +
   theme_minimal(base_size = 14) +
   scale_y_continuous(breaks=seq(-10, 5, 1)) +
-  scale_color_manual(values = viridis(length(unique(big_delta$Site))))
-  
-  
+  scale_color_manual(values = viridis(length(unique(big_delta$Site)))) 
 ```
 
 
