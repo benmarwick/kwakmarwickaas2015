@@ -112,6 +112,7 @@ make_C16_C18_scatter_plot <- function(the_data){
 
 # get plot parameters to make a custom plot
 BchronDensity_plot_params <- function(ID, x){
+ # adapted from https://github.com/cran/Bchron/blob/master/R/plot.BchronDensityRun.R
   
   n = length(x$calAges)
   thetaRange = range(x$calAges[[1]]$ageGrid)
