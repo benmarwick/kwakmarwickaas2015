@@ -117,7 +117,8 @@ CSIA_KM_and_SS <- rbind(CSIA_KM, CSIA_SS)
 # get site ID to control plotting colour and shape
 CSIA_KM_and_SS$ID <- substr(CSIA_KM_and_SS$Sample.No., 1, 2)
 # draw plot
-make_C16_C18_scatter_plot(CSIA_KM_and_SS)
+make_C16_C18_scatter_plot(CSIA_KM_and_SS) # + 
+   # geom_text(aes(label = Sample.No.), hjust = 0, vjust = 0)
 ```
 
 
@@ -128,14 +129,20 @@ The big delta plot
 big_delta <- CSIA_KM_and_SS$C18.0 - CSIA_KM_and_SS$C16.0
 big_delta <- data.frame(big_delta = big_delta, 
                         C16.0 = CSIA_KM_and_SS$C16.0, 
-                        Site = CSIA_KM_and_SS$ID)
+                        Site = CSIA_KM_and_SS$ID,
+                        sample_ID = CSIA_KM_and_SS$Sample.No.)
 # plot
 ggplot(big_delta, aes(C16.0, big_delta, colour = Site)) +
-  geom_point(size = 4) +
+  geom_point(size = 4) + 
+  xlab(bquote(delta*{}^13*"C 16:0 \u2030")) +
+  ylab(bquote(Delta*{}^13*"C \u2030")) +
   xlim(-40,-10) +
   theme_minimal(base_size = 14) +
   scale_y_continuous(breaks=seq(-10, 5, 1)) +
-  scale_color_manual(values = viridis(length(unique(big_delta$Site)))) 
+  scale_color_manual(values = viridis(length(unique(big_delta$Site)))) # +
+  # geom_text(aes(label = sample_ID), hjust = 0, vjust = 0)
+  # SOS033 is the outlier at -8 Delta C18
+ 
 ```
 
 
