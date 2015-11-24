@@ -6,7 +6,7 @@ output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  %\VignetteEncoding{UTF-8} 
 ---
 
 This document reproduces the figures illustrating the geochemical data in Kwak and Marwick 'Food processing and pottery use in the Early Bronze Age, Central Korean Peninsula'
@@ -89,6 +89,78 @@ ggplot(plot_all, aes(dateGrid, densFinal, colour = ID)) +
 ```
 
 
+The table summarising counts and concentrations of residues in the samples
+
+```{r summary_table}
+# we follow the example of Copley, doi:10.1016/j.jas.2004.07.004
+# read in data
+CSIA_KM <- read.csv('data/CSIA_KM.csv', stringsAsFactors = FALSE)
+CSIA_SS <- read.csv('data/CSIA_SS.csv', stringsAsFactors = FALSE)
+
+site_names <- c("Kimpo-Yngchon", "Sosa-Dong")
+containing_lipid_residues <- c(nrow(CSIA_KM), nrow(CSIA_SS))
+total_sherds <- c(49, 37)
+percentage_containing_lipid_residues <- round((containing_lipid_residues / total_sherds * 100), 0)
+lipid_concentrations_ng_max <- c(max(CSIA_KM$Lipid.concentration..ng.g.1.), 
+                                 max(CSIA_SS$Lipid.concentration..ng.g.1.))
+lipid_concentrations_ng_mean <- c(mean(CSIA_KM$Lipid.concentration..ng.g.1.), 
+                                  mean(CSIA_SS$Lipid.concentration..ng.g.1.))
+lipid_concentrations_mg_max <-  round(lipid_concentrations_ng_max / 10e6, 3)
+lipid_concentrations_mg_mean <- round(lipid_concentrations_ng_mean / 10e6, 3)
+
+summary_table <- data.frame( total_sherds,
+                             containing_lipid_residues,
+                             percentage_containing_lipid_residues,
+                             lipid_concentrations_mg_max, 
+                             lipid_concentrations_mg_mean)
+
+# following the example in https://cran.r-project.org/web/packages/htmlTable/vignettes/tables.html
+library(htmlTable)
+htmlTable(summary_table,
+          header = c("Total", "Containing lipid residues", "Percentage containing residues", 
+                     "Maximum", "Mean"),
+          rnames = site_names,
+          cgroup = c("Number of sherds", "", "Lipid concentrations (mg g<sup>−1</sup>)"),
+          n.cgroup = c(2, 1, 2), 
+          caption="Number of sherds containing lipids and their concentrations")   
+```
+
+
+```{r compare_differences}
+# Is the recovery rate signficantly different?
+# chi-square to test if recovery rate is different 
+# From Agresti(2007) p.39
+M <- as.table(cbind((total_sherds-containing_lipid_residues),     
+                     containing_lipid_residues))
+dimnames(M) <- list(site = c("KM", "SS"),
+                    condition = c("not_containing","containing"))
+
+chi_sq_M <- chisq.test(M, simulate.p.value = TRUE, B = 10000)
+chi_sq_M_chivalue <- unname(round(chi_sq_M$statistic, 3))
+chi_sq_M_pvalue <- round(chi_sq_M$p.value, 3)
+chi_df <- (nrow(M)-1) * (ncol(M)-1)
+
+# Are the concentrations of lipids different between the two sites?
+concs <- stack(list(KM = CSIA_KM$Lipid.concentration..ng.g.1., 
+                    SS = CSIA_SS$Lipid.concentration..ng.g.1.))
+# plot
+ggplot(concs, aes(y = values, x = ind)) +
+  geom_violin() +
+  ylab("Lipid concentration (ng/g)") +
+  xlab("Site") +
+  theme_minimal()
+
+# t-test
+lipid_concentrations_diff <- t.test(CSIA_KM$Lipid.concentration..ng.g.1., 
+                                    CSIA_SS$Lipid.concentration..ng.g.1.)
+# test value
+lipid_concentrations_diff_t <- unname(round(lipid_concentrations_diff$statistic, 3))
+# p value
+lipid_concentrations_diff_p <- unname(round(lipid_concentrations_diff$p.value, 3))
+
+```
+
+There is a difference in the recovery rate at the two sites (chi(`r chi_df`, n = `r sum(M)`) = `r chi_sq_M_chivalue`, p = `r chi_sq_M_pvalue`), with significantly more samples from Sosa-Dong containing residues. However, samples from Sosa-Dong have significantly lower concentrations per sherd than Kimpo-Yngchon	 (t(n = `r nrow(concs)`) = `r lipid_concentrations_diff_t`, p = `r lipid_concentrations_diff_p`).
 
 The chromatogram of the GC-MS analysis from one of our samples from the Sosa-Dong site (SOS049). Due to degradation, we usually observe medium- and long-chain saturated fatty acids. 5-α Cholestane was added as an internal standard (132 ng / microliter).   
 
@@ -109,9 +181,7 @@ make_retention_times_plot_no_labels(KIM061)
 The results of CSIA by GC-C-IRMS of the samples from the Sosa-Dong (SO) and Kimpo-Yangchon (KI) site using the reference from Craig et al., 2011 and Steele et al., 2010. 
 
 ```{r fig.height = 8, fig.width=8}
-# read in data
-CSIA_KM <- read.csv('data/CSIA_KM.csv', stringsAsFactors = FALSE)
-CSIA_SS <- read.csv('data/CSIA_SS.csv', stringsAsFactors = FALSE)
+
 # combine both into one dataframe
 CSIA_KM_and_SS <- rbind(CSIA_KM, CSIA_SS)
 # get site ID to control plotting colour and shape
