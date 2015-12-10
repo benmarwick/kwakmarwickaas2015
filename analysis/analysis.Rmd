@@ -130,7 +130,8 @@ htmlTable(summary_table,
 table_of_concs <- data.frame(rbind(
   with(CSIA_KM, cbind(Sample.No., C16.0, C18.0,  Lipid.concentration..ng.g.1.)),
   with(CSIA_SS, cbind(Sample.No., C16.0, C18.0,  Lipid.concentration..ng.g.1.))
-))
+), stringsAsFactors = FALSE)
+
 
 # get sample location and body part
 sampling_KM <- read.csv('data/sampling_Kimpo.csv', stringsAsFactors = FALSE)
