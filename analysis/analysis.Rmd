@@ -105,14 +105,14 @@ lipid_concentrations_ng_max <- c(max(CSIA_KM$Lipid.concentration..ng.g.1.),
                                  max(CSIA_SS$Lipid.concentration..ng.g.1.))
 lipid_concentrations_ng_mean <- c(mean(CSIA_KM$Lipid.concentration..ng.g.1.), 
                                   mean(CSIA_SS$Lipid.concentration..ng.g.1.))
-lipid_concentrations_mg_max <-  round(lipid_concentrations_ng_max / 10e6, 3)
-lipid_concentrations_mg_mean <- round(lipid_concentrations_ng_mean / 10e6, 3)
+lipid_concentrations_ug_max <-  round(lipid_concentrations_ng_max / 10e2, 3)
+lipid_concentrations_ug_mean <- round(lipid_concentrations_ng_mean / 10e2, 3)
 
 summary_table <- data.frame( total_sherds,
                              containing_lipid_residues,
                              percentage_containing_lipid_residues,
-                             lipid_concentrations_mg_max, 
-                             lipid_concentrations_mg_mean)
+                             lipid_concentrations_ug_max, 
+                             lipid_concentrations_ug_mean)
 
 # following the example in https://cran.r-project.org/web/packages/htmlTable/vignettes/tables.html
 library(htmlTable)
@@ -120,17 +120,61 @@ htmlTable(summary_table,
           header = c("Total", "Containing lipid residues", "Percentage containing residues", 
                      "Maximum", "Mean"),
           rnames = site_names,
-          cgroup = c("Number of sherds", "", "Lipid concentrations (mg g<sup>−1</sup>)"),
+          cgroup = c("Number of sherds", "", "Lipid concentrations (&mu;g g<sup>−1</sup>)"),
           n.cgroup = c(2, 1, 2), 
           caption="Number of sherds containing lipids and their concentrations")   
 ```
 
+```{r}
+# table of Potsherd number,	Laboratory code,	Period,	Wall, decoration, technique	Diameter at mouth (cm),	Part of vessel,	Lipid concentration (μg g−1),	δ13C16.0,	δ13C18.0,	Δ13C following http://www.nature.com/nature/journal/v486/n7403/fig_tab/nature11186_T1.html
+table_of_concs <- data.frame(rbind(
+  with(CSIA_KM, cbind(Sample.No., C16.0, C18.0,  Lipid.concentration..ng.g.1.)),
+  with(CSIA_SS, cbind(Sample.No., C16.0, C18.0,  Lipid.concentration..ng.g.1.))
+))
+
+# get sample location and body part
+sampling_KM <- read.csv('data/sampling_Kimpo.csv', stringsAsFactors = FALSE)
+sampling_SS <- read.csv('data/sampling_Sosa.csv', stringsAsFactors = FALSE)
+table_of_samples <- data.frame(rbind(sampling_KM, sampling_SS))
+
+# join concs to sample location and body part
+table_of_details <- merge(table_of_samples, table_of_concs, by = 'Sample.No.')
+
+# clean it a bit...
+remove <- c("/", "No.")
+table_of_details$Location.house.pit.No. <- gsub(paste(remove, collapse = "|"), "", table_of_details$Location.house.pit.No.)
+table_of_details$Location.house.pit.No. <- gsub("  ", "", table_of_details$Location.house.pit.No.)
+
+# make concs readable in ug/g and remove ng
+table_of_details$Lipid.concentration..ug.g.1. <- sprintf("%.3f", as.numeric(as.character(table_of_details$Lipid.concentration..ng.g.1.)) / 10e2)
+table_of_details$Lipid.concentration..ng.g.1. <- NULL
+
+# add big delta
+table_of_details$big_delta <- round(
+                               as.numeric(as.character(table_of_details$C18.0)) - 
+                               as.numeric(as.character(table_of_details$C16.0)), 2)
+
+# make readable column headings (use HTML codes for greeks)
+names(table_of_details) <- c("Laboratory <br>code",	
+                             "Provenance", 
+                             "Part of <br>vessel", 
+                             paste0("&delta;","<sup>13</sup>C 16.0"),
+                             paste0("&delta;","<sup>13</sup>C 18.0"),
+                             "Lipid <br>concentration <br>(&mu;g g<sup>−1</sup>)",
+                             "&Delta;<sup>13</sup>C") 
+
+library(htmlTable)
+htmlTable(table_of_details,
+          header = names(table_of_details),
+          caption="Potsherds selected for isotopic analyses") 
+
+```
 
 ```{r compare_differences}
 # Is the recovery rate signficantly different?
 # chi-square to test if recovery rate is different 
 # From Agresti(2007) p.39
-M <- as.table(cbind((total_sherds-containing_lipid_residues),     
+M <- as.table(cbind((total_sherds - containing_lipid_residues),     
                      containing_lipid_residues))
 dimnames(M) <- list(site = c("KM", "SS"),
                     condition = c("not_containing","containing"))
