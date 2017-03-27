@@ -155,6 +155,9 @@ table_of_details$big_delta <- round(
                                as.numeric(as.character(table_of_details$C18.0)) - 
                                as.numeric(as.character(table_of_details$C16.0)), 2)
 
+# compute ranges of isotope values
+ranges_of_dC <- with(table_of_details, data.frame(range(C16.0), range(C18.0)))
+
 # make readable column headings (use HTML codes for greeks)
 names(table_of_details) <- c("Laboratory <br>code",	
                              "Provenance", 
@@ -248,7 +251,7 @@ big_delta <- data.frame(big_delta = big_delta,
                         sample_ID = CSIA_KM_and_SS$Sample.No.)
 # plot
 ggplot(big_delta, aes(C16.0, big_delta, colour = Site)) +
-  geom_point(size = 4) + 
+  geom_point(size = 2) + 
   xlab(bquote(delta*{}^13*"C 16:0 \u2030")) +
   ylab(bquote(Delta*{}^13*"C \u2030")) +
   xlim(-40,-10) +
